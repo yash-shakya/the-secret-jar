@@ -11,11 +11,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+
+  const router = useRouter()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -35,6 +38,7 @@ export function LoginForm({
         alert("Login failed: " + result.error)
       } else {
         alert("Login successful")
+        router.refresh()
       }
     } catch (error) {
       alert("unexpected error occured")

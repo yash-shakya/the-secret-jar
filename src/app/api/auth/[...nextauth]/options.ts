@@ -73,10 +73,14 @@ export const authOptions: NextAuthOptions = {
                         });
 
                         await newUser.save();
+
+                        user.username=newUser.username
                     } catch (error) {
                         console.log(error)
                     }
 
+                }else{
+                    user.username=existingUser.username
                 }
             }
 
