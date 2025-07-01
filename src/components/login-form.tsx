@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { set } from "mongoose"
+import { Loader2 } from "lucide-react"
 
 export function LoginForm({
   className,
@@ -22,10 +24,12 @@ export function LoginForm({
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
   const { data: session } = useSession()
 
   async function handleSubmit() {
     console.log("triggered")
+    setLoading(true)
     try {
       const result = await signIn("credentials", {
         email,
@@ -37,6 +41,7 @@ export function LoginForm({
       if (result?.error) {
         alert("Login failed: " + result.error)
       } else {
+        setLoading(false)
         alert("Login successful")
         router.refresh()
       }
@@ -45,16 +50,6 @@ export function LoginForm({
       alert("unexpected error occured")
     }
   }
-
-  if (session) {
-      return (
-        <>
-          Signed in as {session.user.email} <br />
-          <button onClick={() => signOut()}>Sign out</button>
-        </>
-      )
-    }
-
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -66,7 +61,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={(e)=>{e.preventDefault(); handleSubmit()}}>
+          <form onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" type="button" className="w-full" onClick={() => signIn("google")}>
@@ -107,9 +102,15 @@ export function LoginForm({
                   </div>
                   <Input id="password" type="password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
-                </Button>
+                {loading ?
+                  <div className="items-center justify-center flex backdrop-blur-md">
+                    <Loader2 className="animate-spin items-center justify-center size-12" />
+                  </div>
+                  :
+                  <Button type="submit" className="w-full">
+                    Login
+                  </Button>
+                }
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
