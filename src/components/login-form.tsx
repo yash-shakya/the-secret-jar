@@ -41,6 +41,7 @@ export function LoginForm({
         router.refresh()
       }
     } catch (error) {
+      console.error("Login error:", error);
       alert("unexpected error occured")
     }
   }

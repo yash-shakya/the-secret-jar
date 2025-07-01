@@ -21,7 +21,7 @@ const FormSchema = z.object({
     }),
 })
 
-function page() {
+function Page() {
     const router = useRouter()
     const { username } = useParams();
 
@@ -91,4 +91,4 @@ function page() {
 
 }
 
-export default page
+export default Page

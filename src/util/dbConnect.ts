@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
-var isConnected: number=0;
+type ConnectionObject = {
+  isConnected?: number;
+};
+
+const connection: ConnectionObject = {};
 
 async function dbConnect(){
-  if(isConnected){
+  if(connection.isConnected){
     console.log("Already connected to the database");
     return;
   }
@@ -15,7 +19,7 @@ async function dbConnect(){
   try {
     console.log('Attempting to connect to MongoDB...');
     const db = await mongoose.connect(process.env.MONGODB_URI);
-    isConnected = db.connections[0].readyState;
+    connection.isConnected = db.connections[0].readyState;
     console.log("Connected to the database successfully");
     return db;
   } catch (err) {

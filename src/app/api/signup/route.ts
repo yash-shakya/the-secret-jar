@@ -70,13 +70,12 @@ export async function POST(req: NextRequest) {
         }, { status: 200 })
 
 
-    } catch (error: any) {
-
-        if (error.name === 'ZodError') {
+    } catch (error: unknown) {
+        
+        if (error instanceof Error && error.name === 'ZodError') {
             return NextResponse.json({
                 success: false,
                 message: "Invalid input data",
-                errors: error.errors
             }, { status: 400 });
         }
 

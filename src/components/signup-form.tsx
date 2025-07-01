@@ -14,8 +14,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useDebounceCallback } from "usehooks-ts"
 import { Loader2 } from "lucide-react"
-import axios, { Axios, AxiosError } from "axios"
-import { z } from "zod"
+import axios, { AxiosError } from "axios"
 import { ApiResponse } from "@/types/ApiResponse"
 
 export function SignupForm({
@@ -33,32 +32,31 @@ export function SignupForm({
 
     const debounced = useDebounceCallback(setUsername, 500);
 
-    async function checkusername() {
 
-        setChecking(true)
-        try {
-            setUsernameMessage("");
-            const response = await axios.get(`/api/checkusername?username=${username}`)
-            console.log(response)
-            setUsernameMessage(response.data.message)
-        } catch (error) {
-            console.log(error)
-            setUsername("error");
-        } finally {
-            setChecking(false)
-        }
-    }
 
     useEffect(() => {
         if (username) {
-            console.log("triggered")
-            checkusername()
+            setChecking(true)
+            async function checkusername() {
+                try {
+                    setUsernameMessage("");
+                    const response = await axios.get(`/api/checkusername?username=${username}`)
+                    console.log(response)
+                    setUsernameMessage(response.data.message)
+                } catch (error) {
+                    console.log(error)
+                    setUsername("error");
+                } finally {
+                    setChecking(false)
+                }
+            }
+            checkusername();
         }
     }, [username])
 
-    async function handleGoogleLogin(){
+    async function handleGoogleLogin() {
         try {
-            const response = signIn("google");
+            signIn("google");
         } catch (error) {
             alert(error)
         }

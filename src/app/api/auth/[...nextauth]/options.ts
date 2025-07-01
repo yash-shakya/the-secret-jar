@@ -14,8 +14,11 @@ export const authOptions: NextAuthOptions = {
                 email: { label: 'Email', type: 'text' },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials: any): Promise<any> {
+            async authorize(credentials: Record<string, string> | undefined) {
                 await dbConnect();
+                if (!credentials) {
+                    throw new Error('No credentials provided');
+                }
                 console.log(credentials.identifier)
                 console.log(credentials)
                 try {
@@ -36,12 +39,20 @@ export const authOptions: NextAuthOptions = {
                         user.password
                     );
                     if (isPasswordCorrect) {
-                        return user;
+                        return {
+                            id: user._id?.toString() || '',
+                            _id: user._id?.toString(),
+                            email: user.email,
+                            username: user.username,
+                            isVerified: user.isVerified,
+                            isAcceptingMessages: user.isAcceptingMessage,
+                        };
                     } else {
                         throw new Error('Incorrect password');
                     }
-                } catch (err: any) {
-                    throw new Error(err);
+                } catch (err: unknown) {
+                    const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+                    throw new Error(errorMessage);
                 }
             },
         }),
@@ -51,7 +62,7 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ user, account }) {
             await dbConnect();
 
             if (account?.provider === "google") {
@@ -74,13 +85,13 @@ export const authOptions: NextAuthOptions = {
 
                         await newUser.save();
 
-                        user.username=newUser.username
+                        user.username = newUser.username
                     } catch (error) {
                         console.log(error)
                     }
 
-                }else{
-                    user.username=existingUser.username
+                } else {
+                    user.username = existingUser.username
                 }
             }
 
