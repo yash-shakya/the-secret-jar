@@ -11,7 +11,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { signOut, useSession } from "next-auth/react"
-import { ModeToggle } from "./ui/Toggle"
+import { ModeToggle } from "./ui/toggle"
 import { useTheme } from "next-themes"
 import { Button } from "./ui/button"
 

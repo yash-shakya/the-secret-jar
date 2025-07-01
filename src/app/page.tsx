@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button';
-import SplineViewer from '@/components/ui/Splinecomponent';
+import SplineViewer from '@/components/ui/splinecomponent';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
