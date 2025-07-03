@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import UserModel from "@/model/user.model";
+import dbConnect from "@/util/dbConnect";
 
 export async function GET(req: NextRequest) {
+    await dbConnect();
     const { searchParams } = new URL(req.url);
     const username = searchParams.get('username');
     console.log("Checking acceptance for username:", username);
