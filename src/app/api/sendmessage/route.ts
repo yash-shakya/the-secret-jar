@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
         }
 
         if (!user.isAcceptingMessage) {
-            return NextResponse.json({ success: false, message: "User not found" }, { status: 400 })
+            return NextResponse.json({ success: false, message: "User not accepting message" }, { status: 400 })
         }
 
         const message = { content, createdAt: new Date() };

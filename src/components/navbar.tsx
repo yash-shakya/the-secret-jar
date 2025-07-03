@@ -12,13 +12,11 @@ import {
 } from "@/components/ui/navigation-menu"
 import { signOut, useSession } from "next-auth/react"
 import { ModeToggle } from "./ui/toggle"
-import { useTheme } from "next-themes"
 import { Button } from "./ui/button"
 
 
 function Navbar() {
     const { data: session } = useSession()
-    const {theme} = useTheme()
 
     return (
         <div className="flex justify-between w-full p-4 items-center">
@@ -41,7 +39,7 @@ function Navbar() {
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
-                                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + `${theme==='light'? "bg-gray-100 hover:bg-gray-200" : "bg-slate-900"}`}>
+                                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + ` bg-gray-100 hover:bg-gray-200 dark:bg-slate-900`}>
                                         <Link href="/signup">Change Username</Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
@@ -58,7 +56,7 @@ function Navbar() {
                     <NavigationMenu>
                         <NavigationMenuList>
                             <NavigationMenuItem>
-                                <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + `${theme==='light'? "bg-gray-100 hover:bg-gray-200" : "bg-slate-900"}`}>
+                                <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + ` bg-gray-100 hover:bg-gray-200 dark:bg-slate-900`}>
                                     <Link href="/signup">Signup</Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
