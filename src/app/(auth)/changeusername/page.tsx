@@ -79,7 +79,7 @@ function Page() {
 
 
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-4 sm:gap-6 bg-muted p-4 sm:p-6 md:p-10">
+        <div className="flex min-h-svh flex-col items-center justify-center gap-4 sm:gap-6 bg-muted p-4 sm:p-6 md:p-10 font-poppins">
             <div className="flex w-full max-w-sm flex-col gap-4 sm:gap-6">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>

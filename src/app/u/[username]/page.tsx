@@ -10,6 +10,8 @@ import { messagesSchema } from '@/schema/messagesSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
 
 
 function Page() {
@@ -87,7 +89,7 @@ function Page() {
 
 
     return (
-        <div className='flex flex-col items-center md:justify-center w-screen min-h-[calc(100vh-74px)] bg-gray-100 dark:bg-gray-900 px-4 py-8'>
+        <div className='flex flex-col items-center  min-h-[calc(100vh-64px)] bg-gray-100 dark:bg-gray-900 px-4 py-8'>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col items-center justify-center w-full h-full'>
                     <FormField
@@ -97,15 +99,15 @@ function Page() {
                             <FormItem className="w-full max-w-4xl">
                                 <FormControl>
                                     <div className='w-full flex justify-center items-center flex-col'>
-                                        <div className='w-full max-w-2xl h-64 sm:h-72 rounded-xl shadow-md'>
+                                        <div className='w-full max-w-2xl max-md:h-52 md:h-72 rounded-xl shadow-md'>
                                             <div className='h-12 sm:h-16 w-full rounded-t-xl items-center flex bg-white dark:bg-gray-950 px-2 sm:px-4'>
-                                                <p className='text-sm sm:text-lg font-semibold break-words'>
+                                                <p className='text-sm sm:text-lg font-semibold font-poppins break-words'>
                                                     Send a anonymous message to @{username}
                                                 </p>
                                             </div>
                                             <textarea
                                                 {...field}
-                                                className='w-full h-[calc(100%-48px)] sm:h-[calc(100%-64px)] p-2 sm:p-4 resize-none border bg-gray-200 dark:bg-gray-800 rounded-b-lg focus:outline-none text-sm sm:text-base'
+                                                className='w-full h-[calc(100%-64px)] max-md:h-[calc(100%-64px)] p-2 sm:p-4 resize-none border bg-gray-200 dark:bg-gray-800 rounded-b-lg focus:outline-none text-sm sm:text-base font-poppins'
                                                 placeholder='Type your message here...'
                                                 disabled={loading}
                                             ></textarea>
@@ -122,6 +124,17 @@ function Page() {
                     }
                 </form>
             </Form>
+            <Card className='max-md:w-80 max-w-4xl mt-8 bg-white dark:bg-gray-950 shadow-md flex flex-col items-center justify-center'>
+                <CardHeader>
+                    <CardTitle className='font-poppins text-center'>Get your own messages!</CardTitle>
+                    <CardDescription className='text-center'>Get a personal link to recieve anonymous messages</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Button>
+                        <Link href={"/signup"}>Get Now!!</Link>
+                    </Button>
+                </CardContent>
+            </Card>
         </div>
     )
 }

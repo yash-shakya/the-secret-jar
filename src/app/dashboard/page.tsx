@@ -114,7 +114,7 @@ export default function Page() {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Switch id="dashboard-mode" {...register} disabled={isSwithcing} checked={accepting} onCheckedChange={changeAccepting} />
-              <Label htmlFor="dashboard-mode" className="text-sm font-medium">
+              <Label htmlFor="dashboard-mode" className="text-sm font-medium font-poppins">
                 Accept Messages
               </Label>
             </div>
@@ -123,11 +123,11 @@ export default function Page() {
 
         {/* API URL Section */}
         <div className="space-y-2">
-          <Label htmlFor="api-url" className="text-sm font-medium">
+          <Label htmlFor="api-url" className="text-sm font-medium font-poppins">
             Share Your URL on Your Story
           </Label>
           <div className="flex items-center space-x-2">
-            <Input id="api-url" value={apiUrl} readOnly className="flex-1 bg-muted" />
+            <Input id="api-url" value={apiUrl} readOnly className="flex-1 bg-muted font-poppins" />
             <Button variant="outline" size="icon" onClick={copyToClipboard} className="shrink-0 bg-transparent">
               {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
             </Button>

@@ -82,7 +82,7 @@ function Navbar() {
     const { data: session } = useSession()
     return (
         
-        <div className="w-full  shadow-md border-b">
+        <div className="w-full font-poppins shadow-md border-b sticky top-0 bg-gray-50 z-10 dark:bg-slate-950 dark:border-slate-700">
             <div className="px-4">
                 <div className="flex justify-between items-center h-16 max-md:hidden">
                         <BigNavbar session={session}/>
