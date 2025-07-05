@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Card } from './card'
 import { Message } from '@/model/user.model'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { Button } from './button'
@@ -26,6 +26,7 @@ function Messagecard({
 }: { message: Message, handleDelete: (id: string) => void }) {
     const date = new Date(message.createdAt)
     const curr = new Date()
+    const [isSharing, setIsSharing] = React.useState(false)
 
     const { register, watch, setValue } = useForm()
 
@@ -71,6 +72,7 @@ function Messagecard({
     const contentRef = useRef<HTMLDivElement>(null);
 
     const handleShare = async () => {
+        setIsSharing(true);
         try {
             if (!navigator.share) {
                 alert('Web Share API is not supported in this browser');
@@ -160,6 +162,8 @@ function Messagecard({
         } catch (error) {
             console.error('Error converting to image:', error);
             alert('Failed to generate image. Please try again.');
+        } finally {
+            setIsSharing(false);
         }
     };
 
@@ -198,9 +202,13 @@ function Messagecard({
                     <p className="text-sm leading-relaxed">{message.content}</p>
                 </div>
                 <div className='mt-6 flex items-center justify-end gap-2'>
-                    <Button onClick={handleShare} >
-                        Share
-                    </Button>
+                    {isSharing ?
+                        <Loader2 className='animate-spin' />
+                        :
+                        <Button onClick={handleShare} >
+                            Share
+                        </Button>
+                    }
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
                             <Button className='bg-red-500 text-white hover:bg-red-700'>Delete</Button>
