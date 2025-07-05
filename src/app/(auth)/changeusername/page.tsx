@@ -38,7 +38,6 @@ function Page() {
                 try {
                     setUsernameMessage("");
                     const response = await axios.get(`/api/checkusername?username=${newUsername}`)
-                    console.log(response)
                     setUsernameMessage(response.data.message)
                 } catch (error) {
                     console.log(error)

@@ -42,7 +42,6 @@ export function SignupForm({
                 try {
                     setUsernameMessage("");
                     const response = await axios.get(`/api/checkusername?username=${username}`)
-                    console.log(response)
                     setUsernameMessage(response.data.message)
                 } catch (error) {
                     console.log(error)

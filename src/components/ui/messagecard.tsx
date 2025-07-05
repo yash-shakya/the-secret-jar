@@ -57,7 +57,6 @@ function Messagecard({
                 })
                 if (response.data.success) {
                     setValue("isOpened", true)
-                    console.log("Message opened successfully");
                 } else {
                     console.error("Failed to open message:", response.data.error);
                 }
@@ -151,7 +150,6 @@ function Messagecard({
                             text: 'Check out this anonymous message!',
                             files: [file],
                         });
-                        console.log('Content shared successfully');
                     } catch (shareError) {
                         console.error('Error sharing:', shareError);
                     }

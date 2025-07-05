@@ -13,8 +13,6 @@ export async function DELETE(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const messageId = searchParams.get("messageId");
         
-        console.log("Session user:", _user); // Debug log
-        
         if (!messageId) {
             return NextResponse.json({ success: false, error: "Message ID is required" }, { status: 400 });
         }

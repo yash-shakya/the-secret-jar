@@ -33,7 +33,6 @@ function Page() {
     })
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data.code, " ", username);
         try {
             const response = await axios.post("/api/verifyotp", {
                 username,

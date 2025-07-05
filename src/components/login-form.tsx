@@ -27,7 +27,6 @@ export function LoginForm({
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit() {
-    console.log("triggered")
     setLoading(true)
     try {
       const result = await signIn("credentials", {
@@ -35,8 +34,6 @@ export function LoginForm({
         password,
         redirect: false
       })
-
-      console.log(result)
       if (result?.error) {
         alert("Login failed: " + result.error)
       } else {

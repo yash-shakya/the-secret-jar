@@ -6,7 +6,6 @@ export async function GET(req: NextRequest) {
     await dbConnect();
     const { searchParams } = new URL(req.url);
     const username = searchParams.get('username');
-    console.log("Checking acceptance for username:", username);
 
     if (!username) {
         return NextResponse.json({ success: false, message: "Username is required" }, { status: 400 });

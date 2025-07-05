@@ -19,8 +19,6 @@ export const authOptions: NextAuthOptions = {
                 if (!credentials) {
                     throw new Error('No credentials provided');
                 }
-                console.log(credentials.identifier)
-                console.log(credentials)
                 try {
                     const user = await UserModel.findOne({
                         $or: [
@@ -67,8 +65,6 @@ export const authOptions: NextAuthOptions = {
 
             if (account?.provider === "google") {
                 const existingUser = await UserModel.findOne({ email: user.email });
-
-                console.log("Google user:", user)
 
                 if (!existingUser) {
                     try {
