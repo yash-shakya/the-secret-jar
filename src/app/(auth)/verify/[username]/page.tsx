@@ -69,7 +69,7 @@ function Page() {
                                 <FormItem className="flex flex-col items-center space-y-4">
                                     <FormLabel className="text-sm sm:text-base">One-Time Password</FormLabel>
                                     <FormControl>
-                                        <InputOTP maxLength={6} {...field} className="gap-2 sm:gap-3">
+                                        <InputOTP maxLength={6} {...field} className="gap-2 sm:gap-3 border border-gray-300 dark:border-gray-700">
                                             <InputOTPGroup>
                                                 <InputOTPSlot index={0} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
                                                 <InputOTPSlot index={1} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />

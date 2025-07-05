@@ -154,7 +154,6 @@ function Messagecard({
                         console.log('Content shared successfully');
                     } catch (shareError) {
                         console.error('Error sharing:', shareError);
-                        downloadImage(finalCanvas);
                     }
                 }
             }, 'image/jpeg', 0.95);
@@ -165,13 +164,6 @@ function Messagecard({
         } finally {
             setIsSharing(false);
         }
-    };
-
-    const downloadImage = (canvas: HTMLCanvasElement) => {
-        const link = document.createElement('a');
-        link.download = 'secret-message.jpg';
-        link.href = canvas.toDataURL('image/jpeg', 0.95);
-        link.click();
     };
 
     return (

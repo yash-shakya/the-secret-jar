@@ -20,7 +20,7 @@ function MessageTemplate({message}: {message: string}) {
                 {/* Message content section */}
                 <div className="flex items-center justify-center h-[450px] rounded-b-[100px] bg-white relative overflow-hidden p-4">                    
                     <div className="relative z-10 text-center max-w-full">
-                        <p className="text-gray-800 text-2xl font-semibold leading-relaxed font-[family-name:var(--font-poppins)] tracking-wide break-words hyphens-auto line-clamp-[11] p-1">
+                        <p className="text-gray-800 text-3xl font-semibold leading-relaxed font-[family-name:var(--font-poppins)] tracking-wide break-words hyphens-auto line-clamp-[11] p-1">
                             {message}
                         </p>
                     </div>
