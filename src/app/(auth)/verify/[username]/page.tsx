@@ -52,40 +52,49 @@ function Page() {
     }
 
     return (
-        <div >
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-                    <FormField
-                        control={form.control}
-                        name="code"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>One-Time Password</FormLabel>
-                                <FormControl>
-                                    <InputOTP maxLength={6} {...field}>
-                                        <InputOTPGroup>
-                                            <InputOTPSlot index={0} />
-                                            <InputOTPSlot index={1} />
-                                            <InputOTPSlot index={2} />
-                                            <InputOTPSeparator />
-                                            <InputOTPSlot index={3} />
-                                            <InputOTPSlot index={4} />
-                                            <InputOTPSlot index={5} />
-                                        </InputOTPGroup>
-                                    </InputOTP>
-                                </FormControl>
-                                <FormDescription>
-                                    Please enter the one-time password sent to your phone.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button type="submit">Submit</Button>
-                </form>
-            </Form>
+        <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
+            <div className="w-full max-w-md space-y-6 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg">
+                <div className="text-center space-y-2">
+                    <h1 className="text-xl sm:text-2xl font-bold">Verify Your Account</h1>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                        Enter the verification code sent to your email
+                    </p>
+                </div>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+                        <FormField
+                            control={form.control}
+                            name="code"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-col items-center space-y-4">
+                                    <FormLabel className="text-sm sm:text-base">One-Time Password</FormLabel>
+                                    <FormControl>
+                                        <InputOTP maxLength={6} {...field} className="gap-2 sm:gap-3">
+                                            <InputOTPGroup>
+                                                <InputOTPSlot index={0} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
+                                                <InputOTPSlot index={1} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
+                                                <InputOTPSlot index={2} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
+                                                <InputOTPSeparator />
+                                                <InputOTPSlot index={3} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
+                                                <InputOTPSlot index={4} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
+                                                <InputOTPSlot index={5} className="w-10 h-10 sm:w-12 sm:h-12 text-lg" />
+                                            </InputOTPGroup>
+                                        </InputOTP>
+                                    </FormControl>
+                                    <FormDescription className="text-xs sm:text-sm text-center">
+                                        Please enter the verification code sent to your email.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" className="w-full h-10 sm:h-12 text-sm sm:text-base">
+                            Verify Account
+                        </Button>
+                    </form>
+                </Form>
+            </div>
         </div>
-
     )
 
 

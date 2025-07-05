@@ -87,25 +87,25 @@ function Page() {
 
 
     return (
-        <div className='flex flex-col items-center justify-center w-screen h-[calc(100vh-74px)] bg-gray-100 dark:bg-gray-900'>
+        <div className='flex flex-col items-center md:justify-center w-screen min-h-[calc(100vh-74px)] bg-gray-100 dark:bg-gray-900 px-4 py-8'>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col items-center justify-center w-full h-full'>
                     <FormField
                         control={form.control}
                         name='content'
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="w-full max-w-4xl">
                                 <FormControl>
-                                    <div className='w-screen -mt-32 flex justify-center items-center flex-col '>
-                                        <div className='w-1/2 h-72 rounded-xl shadow-md'>
-                                            <div className='h-16 w-full rounded-t-xl items-center flex bg-white dark:bg-gray-950'>
-                                                <p className='text-lg font-semibold ml-4'>
+                                    <div className='w-full flex justify-center items-center flex-col'>
+                                        <div className='w-full max-w-2xl h-64 sm:h-72 rounded-xl shadow-md'>
+                                            <div className='h-12 sm:h-16 w-full rounded-t-xl items-center flex bg-white dark:bg-gray-950 px-2 sm:px-4'>
+                                                <p className='text-sm sm:text-lg font-semibold break-words'>
                                                     Send a anonymous message to @{username}
                                                 </p>
                                             </div>
                                             <textarea
                                                 {...field}
-                                                className='w-full h-[calc(100%-64px)] p-4 resize-none border bg-gray-200 dark:bg-gray-800 rounded-b-lg focus:outline-none'
+                                                className='w-full h-[calc(100%-48px)] sm:h-[calc(100%-64px)] p-2 sm:p-4 resize-none border bg-gray-200 dark:bg-gray-800 rounded-b-lg focus:outline-none text-sm sm:text-base'
                                                 placeholder='Type your message here...'
                                                 disabled={loading}
                                             ></textarea>
@@ -116,9 +116,9 @@ function Page() {
                         )}
                     />
                     {loading ?
-                        <Loader2 className='animate-spin w-40 mt-4 h-12 text-lg'/>
+                        <Loader2 className='animate-spin w-32 sm:w-40 mt-4 h-10 sm:h-12 text-base sm:text-lg'/>
                     : 
-                        <Button type='submit' className='w-40 mt-4 h-12 text-lg'>Send</Button>
+                        <Button type='submit' className='w-32 sm:w-40 mt-4 h-10 sm:h-12 text-base sm:text-lg'>Send</Button>
                     }
                 </form>
             </Form>

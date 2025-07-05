@@ -108,10 +108,10 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         {/* Header Section */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Switch id="dashboard-mode" {...register} disabled={isSwithcing} checked={accepting} onCheckedChange={changeAccepting} />
@@ -136,9 +136,11 @@ export default function Page() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {isLoading ?
-            <Loader2 className="animate-spin" />
+            <div className="col-span-full flex justify-center items-center py-8">
+              <Loader2 className="animate-spin h-8 w-8" />
+            </div>
             :
             <>{
               messages.length != 0 ?
@@ -148,7 +150,9 @@ export default function Page() {
                   ))}
                 </>
                 :
-                <div><p>No messages to show</p></div>
+                <div className="col-span-full text-center py-8">
+                  <p className="text-gray-500 dark:text-gray-400">No messages to show</p>
+                </div>
             }
             </>
           }

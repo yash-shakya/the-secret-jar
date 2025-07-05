@@ -16,6 +16,7 @@ import { useDebounceCallback } from "usehooks-ts"
 import { Loader2 } from "lucide-react"
 import axios, { AxiosError } from "axios"
 import { ApiResponse } from "@/types/ApiResponse"
+import Link from "next/link"
 
 export function SignupForm({
     className,
@@ -165,9 +166,9 @@ export function SignupForm({
                                 </div>
                                 <div className="text-center text-sm">
                                     Already have an account?{" "}
-                                    <a href="/login" className="underline underline-offset-4">
+                                    <Link href="/login" className="underline underline-offset-4">
                                         Login
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </form>

@@ -183,46 +183,46 @@ function Messagecard({
                             <div className={`w-3 h-3 ${isOpened ? "bg-gray-200 dark:bg-gray-500" : "bg-green-400"} rounded-full flex-shrink-0`}>
                             </div>
                             <div className='flex-1 overflow-hidden'>
-                                <p className='text-ellipsis overflow-hidden whitespace-nowrap'>{message.content}</p>
+                                <p className='text-ellipsis overflow-hidden whitespace-nowrap text-sm sm:text-base'>{message.content}</p>
                                 <p className='text-xs text-gray-500 mt-1'>{getTimeDifference()}</p>
                             </div>
                         </div>
                         <div className='flex-shrink-0'>
-                            <ChevronRight className='w-5 h-5 text-gray-400' />
+                            <ChevronRight className='w-4 h-4 sm:w-5 sm:h-5 text-gray-400' />
                         </div>
                     </div>
                 </Card>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Anonymous Message</DialogTitle>
-                    <DialogDescription>{`${date.getDate()} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()}`}</DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">Anonymous Message</DialogTitle>
+                    <DialogDescription className="text-sm sm:text-base">{`${date.getDate()} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()}`}</DialogDescription>
                 </DialogHeader>
                 <div className="mt-4">
-                    <p className="text-sm leading-relaxed">{message.content}</p>
+                    <p className="text-sm sm:text-base leading-relaxed break-words">{message.content}</p>
                 </div>
-                <div className='mt-6 flex items-center justify-end gap-2'>
+                <div className='mt-6 flex flex-col sm:flex-row items-center justify-end gap-2'>
                     {isSharing ?
-                        <Loader2 className='animate-spin' />
+                        <Loader2 className='animate-spin h-5 w-5 sm:h-6 sm:w-6' />
                         :
-                        <Button onClick={handleShare} >
+                        <Button onClick={handleShare} className="w-full sm:w-auto">
                             Share
                         </Button>
                     }
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button className='bg-red-500 text-white hover:bg-red-700'>Delete</Button>
+                            <Button className='bg-red-500 text-white hover:bg-red-700 w-full sm:w-auto'>Delete</Button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="w-[95vw] max-w-md">
                             <AlertDialogHeader>
-                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
+                                <AlertDialogTitle className="text-base sm:text-lg">Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription className="text-sm sm:text-base">
                                     This action cannot be undone. This will permanently delete the message.
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction className='bg-red-500 text-white hover:bg-red-700' onClick={() => handleDelete(message._id as string)}>Continue</AlertDialogAction>
+                            <AlertDialogFooter className="flex flex-col sm:flex-row gap-2">
+                                <AlertDialogCancel className="w-full sm:w-auto">Cancel</AlertDialogCancel>
+                                <AlertDialogAction className='bg-red-500 text-white hover:bg-red-700 w-full sm:w-auto' onClick={() => handleDelete(message._id as string)}>Continue</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>

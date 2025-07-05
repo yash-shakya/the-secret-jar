@@ -13,6 +13,7 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
+import Link from "next/link"
 
 export function LoginForm({
   className,
@@ -89,11 +90,11 @@ export function LoginForm({
                 </div>
 
                 <div className="grid gap-2">
-                  <div className="flex items-center">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0">
                     <Label htmlFor="password">Password</Label>
                     <a
                       href="#"
-                      className="ml-auto text-sm underline-offset-4 hover:underline"
+                      className="sm:ml-auto text-xs sm:text-sm underline-offset-4 hover:underline text-right"
                     >
                       Forgot your password?
                     </a>
@@ -112,9 +113,9 @@ export function LoginForm({
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a href="/signup" className="underline underline-offset-4">
+                <Link href="/signup" className="underline underline-offset-4">
                   Sign up
-                </a>
+                </Link>
               </div>
             </div>
           </form>
