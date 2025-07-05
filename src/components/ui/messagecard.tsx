@@ -186,7 +186,7 @@ function Messagecard({
                 </Card>
             </DialogTrigger>
             <DialogContent className="w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto">
-                {/* <DialogHeader>
+                <DialogHeader>
                     <DialogTitle className="text-lg sm:text-xl">Anonymous Message</DialogTitle>
                     <DialogDescription className="text-sm sm:text-base">{`${date.getDate()} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()}`}</DialogDescription>
                 </DialogHeader>
@@ -218,8 +218,7 @@ function Messagecard({
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
-                </div> */}
-                <MessageTemplate message={message.content} />
+                </div>
 
                 {/* Hidden MessageTemplate for sharing */}
                 <div ref={contentRef} className="absolute -left-[9999px] -top-[9999px] pointer-events-none">
