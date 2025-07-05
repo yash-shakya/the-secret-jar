@@ -74,7 +74,6 @@ export default function Page() {
       const response = await axios.get("/api/getmessages")
       if (response.data.success) {
         setMessages(response.data.messages)
-        console.log("Messages fetched successfully:", response.data.messages)
       } else {
         console.error("Failed to fetch messages")
       }

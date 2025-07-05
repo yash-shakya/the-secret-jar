@@ -97,13 +97,22 @@ export const authOptions: NextAuthOptions = {
 
             return true;
         },
-        async jwt({ token, user }) {
-            if (user) {
+        async jwt({ token,trigger, user, session }) {
+            if(trigger === "update" && session?.user) {
+                // If the session is updated, we can update the token with the new user data
+                token._id = session.user._id;
+                token.isVerified = session.user.isVerified;
+                token.isAcceptingMessages = session.user.isAcceptingMessages;
+                token.username = session.user.username;
+
+            }
+            else if (user) {
                 token._id = user._id?.toString(); // Convert ObjectId to string
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages;
                 token.username = user.username;
             }
+            
             return token;
         },
         async session({ session, token }) {

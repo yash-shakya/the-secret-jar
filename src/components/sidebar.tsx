@@ -37,7 +37,7 @@ const navigationItems = [
 const settingsItems = [
     {
         title: "Change Username",
-        url: "/signup",
+        url: "/changeusername",
         icon: User,
     }
 ]
