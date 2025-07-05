@@ -22,8 +22,18 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false)
   const [isSwithcing, setIsSwitching] = useState(false)
 
-  const handleDelete = (messageId: string) => {
+  const handleDelete = async (messageId: string) => {
     setMessages(messages.filter((message) => message._id !== messageId));
+    try {
+      const response = await axios.delete(`/api/deletemessage?messageId=${messageId}`)
+      if (response.data.success) {
+        console.log("Message deleted successfully")
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error("Error deleting message: ", error || "An error occurred")
+      }
+    }
   };
 
   const { watch, register, setValue } = useForm({
@@ -91,7 +101,7 @@ export default function Page() {
       getAcceptingStatus()
       getMessages()
     }
-  },[session])
+  }, [session])
 
 
 

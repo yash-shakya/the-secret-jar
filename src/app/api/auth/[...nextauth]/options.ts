@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
             if (account?.provider === "google") {
                 const existingUser = await UserModel.findOne({ email: user.email });
 
-                console.log(user)
+                console.log("Google user:", user)
 
                 if (!existingUser) {
                     try {
@@ -85,13 +85,15 @@ export const authOptions: NextAuthOptions = {
 
                         await newUser.save();
 
-                        user.username = newUser.username
+                        user._id = newUser._id?.toString();
+                        user.username = newUser.username;
                     } catch (error) {
-                        console.log(error)
+                        console.log("Error creating Google user:", error)
                     }
 
                 } else {
-                    user.username = existingUser.username
+                    user._id = existingUser._id?.toString();
+                    user.username = existingUser.username;
                 }
             }
 
