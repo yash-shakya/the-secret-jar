@@ -59,6 +59,10 @@ function Page() {
                 setLoading(false);
                 return;
             }
+            if(content.length>=250){
+                alert("Message too Long! Please keep it under 250 characters.");
+                return;
+            }
             const response = await axios.post(`/api/sendmessage`, {
                 username,
                 content: data.content
