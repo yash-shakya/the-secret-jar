@@ -1,5 +1,5 @@
 "use client"
-import { Home, Inbox, User, Settings, MessageSquare, Shield, LogOut } from "lucide-react"
+import { Home, Inbox, User, MessageSquare, LogOut } from "lucide-react"
 import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 

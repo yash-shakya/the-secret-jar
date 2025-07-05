@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import Link from "next/link"
 import {
     NavigationMenu,
@@ -60,7 +60,6 @@ function BigNavbar({ session }: { session: Session | null }) {
 }
 
 function MobileNavbar({ session }: { session: Session | null }) {
-    const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="flex justify-between w-full p-4 items-center">
             <div className="flex items-center gap-4">
