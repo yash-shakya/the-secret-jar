@@ -9,6 +9,13 @@ export default {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			'playfair': ['var(--font-playfair)', 'serif'],
+  			'poppins': ['var(--font-poppins)', 'sans-serif'],
+  			'inter': ['var(--font-inter)', 'sans-serif'],
+  			'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
+  			'geist-mono': ['var(--font-geist-mono)', 'monospace'],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

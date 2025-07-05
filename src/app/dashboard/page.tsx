@@ -1,64 +1,101 @@
 "use client"
 
-import { useState } from "react"
-import { Copy, Check } from "lucide-react"
+import { Key, useCallback, useEffect, useState } from "react"
+import { Copy, Check, Loader2 } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import Messagecard from "@/components/ui/messagecard"
 import { useSession } from "next-auth/react"
+import axios, { AxiosError } from "axios"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { acceptMessageSchema } from "@/schema/acceptMessageSchema"
+import { Message } from "@/model/user.model"
 
 export default function Page() {
   const { data: session } = useSession()
-  const [isEnabled, setIsEnabled] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [messages, setMessages] = useState<Message[]>([])
   const apiUrl = `https://thesecretjar.vercel.app/u/${session?.user?.username}`
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSwithcing, setIsSwitching] = useState(false)
 
-  const cardData = [
-    {
-      id: 1,
-      title: "User Analytics",
-      description: "Monthly active users",
-      content:
-        "This card contains detailed analytics about user engagement, including daily active users, session duration, bounce rates, and conversion metrics. The data shows a 15% increase in user engagement over the past month, with particularly strong performance in mobile users. Key insights include improved retention rates and higher click-through rates on promotional content.",
-    },
-    {
-      id: 2,
-      title: "Revenue Report",
-      description: "Financial overview",
-      content:
-        "Comprehensive revenue analysis showing quarterly performance across all product lines. Total revenue increased by 23% compared to last quarter, driven primarily by subscription renewals and new customer acquisitions. The enterprise segment showed exceptional growth with a 45% increase in contract values. Operating margins improved by 3.2% due to cost optimization initiatives.",
-    },
-    {
-      id: 3,
-      title: "System Performance",
-      description: "Infrastructure metrics",
-      content:
-        "Real-time monitoring data for all system components including server response times, database query performance, and API endpoint availability. Current uptime is 99.97% with average response times under 200ms. Recent optimizations have reduced memory usage by 18% and improved cache hit rates to 94%. No critical issues detected in the past 30 days.",
-    },
-    {
-      id: 4,
-      title: "Customer Feedback",
-      description: "Support and satisfaction",
-      content:
-        "Customer satisfaction scores and support ticket analysis for the current period. Overall satisfaction rating is 4.7/5 with 89% of tickets resolved within 24 hours. Common feedback themes include praise for product reliability and requests for additional integration options. Support team response time has improved by 32% following recent process improvements.",
-    },
-    {
-      id: 5,
-      title: "Marketing Campaigns",
-      description: "Campaign performance",
-      content:
-        "Detailed analysis of all active marketing campaigns across digital channels. Email campaigns achieved a 24% open rate and 6.8% click-through rate, exceeding industry benchmarks. Social media engagement increased by 41% with video content performing particularly well. The latest product launch campaign generated 1,247 qualified leads with a conversion rate of 12.3%.",
-    },
-    // {
-    //   id: 6,
-    //   title: "Inventory Status",
-    //   description: "Stock and supply chain",
-    //   content:
-    //     "Current inventory levels and supply chain status across all warehouses and distribution centers. Stock levels are optimal with 94% fill rate and average inventory turnover of 8.2x annually. Recent supply chain optimizations have reduced shipping costs by 15% while maintaining delivery times. Three new supplier partnerships have been established to ensure supply continuity.",
-    // },
-  ]
+  const handleDelete = (messageId: string) => {
+    setMessages(messages.filter((message) => message._id !== messageId));
+  };
+
+  const { watch, register, setValue } = useForm({
+    resolver: zodResolver(acceptMessageSchema)
+  })
+
+  const accepting = watch("acceptMessage");
+
+  async function getAcceptingStatus() {
+    setIsLoading(true)
+    try {
+      const response = await axios.get(`/api/changeaccepting`)
+      if (response.data.success) {
+        setValue("acceptMessage", response.data.isAccepting)
+      } else {
+        console.error("Failed to fetch acceptance status")
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error("Error fetching acceptance status:", error)
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const changeAccepting = useCallback(async () => {
+    setIsSwitching(true)
+    try {
+      const response = await axios.post("/api/changeaccepting", {
+        accept: !accepting
+      })
+      if (response.data.success) {
+        setValue("acceptMessage", !accepting)
+      } else {
+        console.error("Failed to update acceptance status")
+      }
+    } catch (error) {
+      console.error("Error changing acceptance status:", error)
+    } finally {
+      setIsSwitching(false)
+    }
+  }, [setValue, accepting])
+
+  async function getMessages() {
+    setIsLoading(true)
+    try {
+      const response = await axios.get("/api/getmessages")
+      if (response.data.success) {
+        setMessages(response.data.messages)
+        console.log("Messages fetched successfully:", response.data.messages)
+      } else {
+        console.error("Failed to fetch messages")
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error("Error fetching messages:", error)
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (session) {
+      getAcceptingStatus()
+      getMessages()
+    }
+  })
+
+
+
 
   const copyToClipboard = async () => {
     try {
@@ -71,13 +108,13 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header Section */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <Switch id="dashboard-mode" checked={isEnabled} onCheckedChange={setIsEnabled} />
+              <Switch id="dashboard-mode" {...register} disabled={isSwithcing} checked={accepting} onCheckedChange={changeAccepting} />
               <Label htmlFor="dashboard-mode" className="text-sm font-medium">
                 Accept Messages
               </Label>
@@ -91,7 +128,7 @@ export default function Page() {
             Share Your URL on Your Story
           </Label>
           <div className="flex items-center space-x-2">
-            <Input id="api-url" value={apiUrl} disabled className="flex-1 bg-muted" />
+            <Input id="api-url" value={apiUrl} readOnly className="flex-1 bg-muted" />
             <Button variant="outline" size="icon" onClick={copyToClipboard} className="shrink-0 bg-transparent">
               {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
             </Button>
@@ -99,10 +136,22 @@ export default function Page() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cardData.map((card) => (
-            <Messagecard card={card} key={card.id}/>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {isLoading ?
+            <Loader2 className="animate-spin" />
+            :
+            <>{
+              messages.length != 0 ?
+                <>
+                  {messages.map((message) => (
+                    <Messagecard message={message} handleDelete={handleDelete} key={message._id as Key} />
+                  ))}
+                </>
+                :
+                <div><p>No messages to show</p></div>
+            }
+            </>
+          }
         </div>
       </div>
     </div>

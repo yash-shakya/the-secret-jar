@@ -3,12 +3,18 @@ import mongoose, {Schema,Document} from "mongoose";
 export interface Message extends Document {
     content: string;
     createdAt: Date;
+    isOpened:boolean;
 }
 
 const messageSchema: Schema<Message> = new Schema({
     content:{
         type: String,
         required: true
+    },
+    isOpened:{
+        type: Boolean,
+        required: true,
+        default: false
     },
     createdAt:{
         type: Date,

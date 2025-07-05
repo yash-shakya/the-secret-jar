@@ -14,7 +14,7 @@ import { Loader2 } from 'lucide-react';
 
 function Page() {
     const { username } = useParams();
-    const [isAccepting, setIsAccepting] = useState(false);
+    const [isAccepting, setIsAccepting] = useState(true);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -37,6 +37,7 @@ function Page() {
                 }
                 setMessage(data.message);
             } catch (error) {
+                setIsAccepting(false);
                 if (error instanceof AxiosError) {
                     setMessage(error.response?.data?.message || "An error occurred while fetching acceptance status.");
                 }
