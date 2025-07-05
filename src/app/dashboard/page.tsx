@@ -92,7 +92,7 @@ export default function Page() {
       getAcceptingStatus()
       getMessages()
     }
-  })
+  },[session])
 
 
 
