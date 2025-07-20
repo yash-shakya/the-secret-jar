@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import UserModel from "@/model/user.model";
 import dbConnect from "@/util/dbConnect";
 import bcrypt from "bcryptjs";
-import { signupSchema } from "@/schema/signupSchema";
 import { sendotp } from "@/util/sendotp";
 
 export async function POST(req: NextRequest) {
