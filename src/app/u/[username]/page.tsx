@@ -108,7 +108,7 @@ function Page() {
                                         <div className='w-full max-w-2xl max-md:h-52 md:h-72 rounded-xl shadow-md'>
                                             <div className='h-12 sm:h-16 w-full rounded-t-xl items-center flex bg-white dark:bg-gray-950 px-2 sm:px-4'>
                                                 <p className='text-sm sm:text-lg font-semibold font-poppins break-words'>
-                                                    Send a anonymous message to {name}
+                                                    Send a anonymous message to {name || `@${username}`}
                                                 </p>
                                             </div>
                                             <textarea
