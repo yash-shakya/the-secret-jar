@@ -8,7 +8,7 @@ import { sendotp } from "@/util/sendotp";
 export async function POST(req: NextRequest) {
     await dbConnect();
     try {
-        const { username, email, password } = signupSchema.parse(await req.json());
+        const { username, name, email, password } = await req.json();
 
         const user = await UserModel.findOne({
             $or: [
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
         if (!user) {
             await UserModel.create({
                 email,
+                name,
                 username,
                 password: hashedPass,
                 verifyCode,
@@ -50,6 +51,7 @@ export async function POST(req: NextRequest) {
         }, { status: 409 })
 
         user.username = username;
+        user.name = name;
         user.email = email;
         user.password = hashedPass;
         user.verifyCode = verifyCode;

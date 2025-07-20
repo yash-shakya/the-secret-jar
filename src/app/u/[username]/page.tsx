@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import axios, { AxiosError } from 'axios';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,7 @@ import Link from 'next/link';
 function Page() {
     const { username } = useParams();
     const [isAccepting, setIsAccepting] = useState(true);
+    const [name,setName] = useState("");
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -34,6 +35,7 @@ function Page() {
                 const data = response.data;
                 if (data.success) {
                     setIsAccepting(data.isAccepting);
+                    setName(data.name);
                 } else {
                     console.error(data.message);
                 }
@@ -106,7 +108,7 @@ function Page() {
                                         <div className='w-full max-w-2xl max-md:h-52 md:h-72 rounded-xl shadow-md'>
                                             <div className='h-12 sm:h-16 w-full rounded-t-xl items-center flex bg-white dark:bg-gray-950 px-2 sm:px-4'>
                                                 <p className='text-sm sm:text-lg font-semibold font-poppins break-words'>
-                                                    Send a anonymous message to @{username}
+                                                    Send a anonymous message to {name}
                                                 </p>
                                             </div>
                                             <textarea

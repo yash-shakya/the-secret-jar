@@ -43,7 +43,6 @@ export default function Page() {
   const accepting = watch("acceptMessage");
 
   async function getAcceptingStatus() {
-    setIsLoading(true)
     try {
       const response = await axios.get(`/api/changeaccepting`)
       if (response.data.success) {
@@ -55,8 +54,6 @@ export default function Page() {
       if (error instanceof AxiosError) {
         console.error("Error fetching acceptance status:", error)
       }
-    } finally {
-      setIsLoading(false)
     }
   }
 

@@ -27,7 +27,7 @@ function BigNavbar({ session }: { session: Session | null }) {
 
             <div className="hidden md:block">
                 {session ?
-                    <span className="text-sm">Welcome {session.user.username}</span>
+                    <span className="text-sm">Welcome {session.user.name}</span>
                     : <></>}
             </div>
             <div className="flex gap-2 sm:gap-4 lg:gap-6 items-center">

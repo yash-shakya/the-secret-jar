@@ -29,6 +29,7 @@ export function SignupForm({
     const [submiting, setSubmiting] = useState(false)
     const [checking, setChecking] = useState(false)
     const [usernameMessage, setUsernameMessage] = useState("")
+    const [name,setName] = useState("");
     const { data: session } = useSession()
 
     const debounced = useDebounceCallback(setUsername, 500);
@@ -67,6 +68,7 @@ export function SignupForm({
         try {
             const response = await axios.post("/api/signup", {
                 username,
+                name,
                 email,
                 password
             })
@@ -126,6 +128,14 @@ export function SignupForm({
                                     </span>
                                 </div>
                                 <div className="grid gap-6">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="email">Name</Label>
+                                        <Input
+                                            id="name"
+                                            type="text"
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                    </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="email">Email</Label>
                                         <Input

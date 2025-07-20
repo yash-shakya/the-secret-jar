@@ -42,6 +42,7 @@ export const authOptions: NextAuthOptions = {
                             _id: user._id?.toString(),
                             email: user.email,
                             username: user.username,
+                            name: user.name,
                             isVerified: user.isVerified,
                             isAcceptingMessages: user.isAcceptingMessage,
                         };
@@ -71,6 +72,7 @@ export const authOptions: NextAuthOptions = {
                         const newUser = new UserModel({
                             username: user.email!.split("@")[0], // or generate unique username
                             email: user.email,
+                            name: user.name || user.email!.split("@")[0], // use email prefix as fallback
                             password: "google_oauth", // placeholder (won't be used)
                             isVerified: true,
                             verifyCode: "",

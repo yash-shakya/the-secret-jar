@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 
         const message = user.isAcceptingMessage ? "User is accepting messages" : "User is not accepting messages";
 
-        return NextResponse.json({ success:true, isAccepting: user.isAcceptingMessage, message:message }, { status: 200 });
+        return NextResponse.json({ success:true, isAccepting: user.isAcceptingMessage, message:message, name:user.name }, { status: 200 });
     } catch (error) {
         console.error('Error checking acceptance:', error);
         return NextResponse.json({ success: false, message: "Internal server error" }, { status: 500 });
